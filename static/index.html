@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>CDE · Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="chat.css" />
+</head>
+<body>
+
+  <main class="demo">
+    <h1>CDE</h1>
+    <p>Widget de chat (HTML+CSS+JS) que consume <code>/health</code> y <code>/generate</code>.</p>
+  </main>
+
+  <!-- Launcher -->
+  <button id="cde-launcher" class="cde-fab" aria-label="Abrir chat">💬</button>
+
+  <!-- Panel de chat -->
+  <section id="cde-chat" class="cde-chat" aria-label="Chat de CDE" hidden>
+    <header class="cde-head">
+      <div class="brand">
+        <div class="logo">CDE</div>
+        <div class="title">Asistente</div>
+      </div>
+      <div class="right">
+        <span id="cde-health" class="pill pill-warn">Comprobando…</span>
+        <button id="cde-close" class="icon-btn" aria-label="Cerrar">×</button>
+      </div>
+    </header>
+
+    <div class="cde-body">
+      <div id="cde-msgs" class="msgs">
+        <div class="msg ai">Hola 👋 Soy tu asistente de CDE. ¿En qué te ayudo hoy?</div>
+      </div>
+
+      <div class="toolbar">
+        <input id="cde-api" class="api" value="http://localhost:8000" />
+        <button id="cde-check" class="btn btn-ghost">Health</button>
+      </div>
+
+      <form id="cde-form" class="inputbar" autocomplete="off">
+        <textarea id="cde-prompt" rows="1" placeholder="Escribe tu mensaje…"></textarea>
+        <button id="cde-send" class="btn btn-primary" type="submit" aria-label="Enviar">➤</button>
+      </form>
+    </div>
+  </section>
+
+  <script src="chat.js"></script>
+</body>
+</html>

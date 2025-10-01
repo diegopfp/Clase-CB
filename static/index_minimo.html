@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Mini Chat</title>
+</head>
+<body>
+  <h3>Mini Chat LLM</h3>
+
+  <form id="chatForm">
+    <input id="prompt" type="text" placeholder="Escribe tu mensaje..." autocomplete="off">
+    <button type="submit">Enviar</button>
+  </form>
+
+  <div id="responses"></div>
+
+  <script>
+    const form = document.getElementById("chatForm");
+    const promptInp = document.getElementById("prompt");
+    const responses = document.getElementById("responses");
+
+    async function sendMessage(text){
+      const divUser = document.createElement("div");
+      divUser.textContent = "Tú: " + text;
+      responses.appendChild(divUser);
+
+      try {
+        const r = await fetch("http://localhost:8000/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt: text })
+        });
+        const j = await r.json();
+        const divBot = document.createElement("div");
+        divBot.textContent = "Bot: " + (j.output || "(sin salida)");
+        responses.appendChild(divBot);
+      } catch(e) {
+        const divErr = document.createElement("div");
+        divErr.textContent = "Error: " + e.message;
+        responses.appendChild(divErr);
+      }
+    }
+
+    form.addEventListener("submit", (ev)=>{
+      ev.preventDefault();
+      const text = promptInp.value.trim();
+      if(text){
+        sendMessage(text);
+        promptInp.value = "";
+      }
+    });
+  </script>
+</body>
+</html>
